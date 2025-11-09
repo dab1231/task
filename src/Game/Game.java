@@ -49,8 +49,100 @@ public class Game {
         }
         if(found){
             System.out.println("Есть такая буква!");
+            IsWon(guess);
         } else {
             System.out.println("Такой буквы нет.");
+        }
+    }
+
+    public boolean IsWon(char[] word){
+        for(int i = 0; i < word.length; i++){
+            if(!(word[i] == this.word[i])){
+                return false;
+            }
+        }
+        return true;
+    }
+
+    public void DrawGallows(){
+        switch(steps){
+            case 0:
+                System.err.println("""
+                    +---+
+                    |   |
+                    O   |
+                   /|\\  |
+                   / \\  |
+                        |
+                ________|
+                0 попыток(
+                """);
+            case 1:
+                System.err.println("""
+                    +---+
+                    |   |
+                    O   |
+                   /|\\  |
+                   /    |
+                        |
+                ________|
+                1 попытка
+                """);
+            case 2:
+                System.err.println("""
+                    +---+
+                    |   |
+                    O   |
+                   /|\\  |
+                        |
+                        |
+                ________|
+                2 попытки
+                """);
+            case 3:
+                System.err.println("""
+                    +---+
+                    |   |
+                    O   |
+                   /|   |
+                        |
+                        |
+                ________|
+                3 попытки
+                """);
+            case 4:
+                System.err.println("""
+                    +---+
+                    |   |
+                    O   |
+                    |   |
+                        |
+                        |
+                ________|
+                4 попытки
+                """);
+            case 5:
+                System.err.println("""
+                    +---+
+                    |   |
+                    O   |
+                        |
+                        |
+                        |
+                ________|
+                5 попыток
+                """);
+            case 6:
+                System.err.println("""
+                    +---+
+                    |   |
+                        |
+                        |
+                        |
+                        |
+                ________|
+                6 попыток
+                """);
         }
     }
 }

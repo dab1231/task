@@ -9,7 +9,7 @@ import java.util.Random;
 public class Generate {
     public static String GenerateWord() throws IOException {
         
-        FileReader fileReader = new FileReader("russian-mnemonic.txt");
+        FileReader fileReader = new FileReader("russian-mnemonic-words.txt");
         BufferedReader bufferedReader = new BufferedReader(fileReader);
 
         int lim = 33740;
