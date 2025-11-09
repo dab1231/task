@@ -2,8 +2,9 @@ package Game;
 import java.io.IOException;
 import java.util.Random;
 import java.util.Scanner;
-
+import generate.Generate;
 import generate.*;
+
 public class Game {
     public char[] word;
     public char[] guess;
@@ -48,9 +49,11 @@ public class Game {
             }
         }
         if(found){
+            DrawGallows();
             System.out.println("Есть такая буква!");
             IsWon(guess);
         } else {
+            DrawGallows();
             System.out.println("Такой буквы нет.");
         }
     }
@@ -67,7 +70,7 @@ public class Game {
     public void DrawGallows(){
         switch(steps){
             case 0:
-                System.err.println("""
+                System.out.println("""
                     +---+
                     |   |
                     O   |
@@ -77,8 +80,9 @@ public class Game {
                 ________|
                 0 попыток(
                 """);
+                System.out.println(guess);
             case 1:
-                System.err.println("""
+                System.out.println("""
                     +---+
                     |   |
                     O   |
@@ -88,8 +92,9 @@ public class Game {
                 ________|
                 1 попытка
                 """);
+                System.err.println(guess);
             case 2:
-                System.err.println("""
+                System.out.println("""
                     +---+
                     |   |
                     O   |
@@ -99,8 +104,9 @@ public class Game {
                 ________|
                 2 попытки
                 """);
+                System.out.println(guess);
             case 3:
-                System.err.println("""
+                System.out.println("""
                     +---+
                     |   |
                     O   |
@@ -110,8 +116,9 @@ public class Game {
                 ________|
                 3 попытки
                 """);
+                System.out.println(guess);
             case 4:
-                System.err.println("""
+                System.out.println("""
                     +---+
                     |   |
                     O   |
@@ -121,8 +128,9 @@ public class Game {
                 ________|
                 4 попытки
                 """);
+                System.out.println(guess);
             case 5:
-                System.err.println("""
+                System.out.println("""
                     +---+
                     |   |
                     O   |
@@ -132,8 +140,9 @@ public class Game {
                 ________|
                 5 попыток
                 """);
+                System.out.println(guess);
             case 6:
-                System.err.println("""
+                System.out.println("""
                     +---+
                     |   |
                         |
@@ -143,6 +152,7 @@ public class Game {
                 ________|
                 6 попыток
                 """);
+                System.out.println(guess);
         }
     }
 }
