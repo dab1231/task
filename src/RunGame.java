@@ -5,7 +5,7 @@ public class RunGame {
     public static void main(String[] args) throws IOException{
         Game game = new Game();
         boolean win = false;
-        while(win){
+        while(!win){
             game.Step();
         }
     }

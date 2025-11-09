@@ -1,15 +1,22 @@
 package generate;
 
 import java.io.BufferedReader;
-import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.Random;
 
 public class Generate {
     public static String GenerateWord() throws IOException {
         
-        FileReader fileReader = new FileReader("russian-mnemonic-words.txt");
-        BufferedReader bufferedReader = new BufferedReader(fileReader);
+        // Загружаем файл как ресурс из того же пакета
+        InputStream inputStream = Generate.class.getResourceAsStream("russian-mnemonic-words.txt");
+        
+        if (inputStream == null) {
+            throw new IOException("Файл russian-mnemonic-words.txt не найден в пакете generate!");
+        }
+        
+        BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream, "UTF-8"));
 
         int lim = 33740;
         Random random = new Random();
