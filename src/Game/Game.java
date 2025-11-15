@@ -2,15 +2,21 @@ package Game;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Random;
 import java.util.Scanner;
 import generate.Generate;
-import java.lang.Runtime;
+import java.util.List;
 
 public class Game {
     public char[] word;
     public char[] guess;
     public int steps = 6;
+    public List<Character> validLetters = Arrays.asList('a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z');
+    public List<Character> inputedLetters = new ArrayList<>();
+
+
 
     public Game() throws IOException {
         word = getChars(Generate.GenerateWord());
@@ -44,10 +50,17 @@ public class Game {
         InputStreamReader isr = new InputStreamReader(System.in, StandardCharsets.UTF_8);
         Scanner scanner = new Scanner(isr);
         DrawGallows();
-        System.out.println("Введите букву: ");
 
+        System.out.print("Введите букву (Пример: a / b / w): ");
         String input = scanner.next();
         char letter = input.charAt(0);
+
+        while(!validLetters.contains(letter)){
+            clearConsole();
+            System.out.print("Ошибка, введите букву согласно примеру (Пример: a / b / w): ");
+            input = scanner.next();
+            letter = input.charAt(0);
+        }
         
         boolean found = false;
         for(int i = 0; i < word.length; i++){
@@ -56,13 +69,21 @@ public class Game {
                 found = true;
             }
         }
+
         if(found){
             clearConsole();
+            inputedLetters.add(letter);
             return IsWon(guess);
             
         } else {
+            if(inputedLetters.contains(letter)){
+                clearConsole();
+                inputedLetters.add(letter);
+                return IsWon(guess);
+            }
             steps = steps - 1;
             clearConsole();
+            inputedLetters.add(letter);
             return IsWon(guess);
         }
     }

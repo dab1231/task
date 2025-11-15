@@ -9,7 +9,6 @@ import java.util.Random;
 public class Generate {
     public static String GenerateWord() throws IOException {
         
-        // Загружаем файл как ресурс из того же пакета
         InputStream inputStream = Generate.class.getResourceAsStream("google-10000-english-usa-no-swears-long.txt");
         
         if (inputStream == null) {
