@@ -5,6 +5,7 @@ import java.nio.charset.StandardCharsets;
 import java.util.Random;
 import java.util.Scanner;
 import generate.Generate;
+import java.lang.Runtime;
 
 public class Game {
     public char[] word;
@@ -37,20 +38,17 @@ public class Game {
         return this.guess;
     }
 
-    public void Step() throws IOException{
+    public boolean Step() throws IOException{
         InputStreamReader isr = new InputStreamReader(System.in, StandardCharsets.UTF_8);
         Scanner scanner = new Scanner(isr);
         DrawGallows();
         System.out.println("Введите букву: ");
 
         String input = scanner.next();
-        System.out.println("Ты ввёл строку: '" + input + "', длина: " + input.length());
         char letter = input.charAt(0);
-        System.out.println("Первый символ: '" + letter + "', код: " + (int)letter);
         
         boolean found = false;
         for(int i = 0; i < word.length; i++){
-            System.out.println("Сравниваю: '" + word[i] + "' с '" + letter + "'");
             if(word[i] == letter){
                 guess[i] = letter;
                 found = true;
@@ -58,10 +56,14 @@ public class Game {
         }
         if(found){
             System.out.println("Есть такая буква!");
-            IsWon(guess);
+            clearConsole();
+            return IsWon(guess);
+            
         } else {
             System.out.println("Такой буквы нет.");
             steps = steps - 1;
+            clearConsole();
+            return IsWon(guess);
         }
     }
 
@@ -72,6 +74,11 @@ public class Game {
             }
         }
         return true;
+    }
+
+    public void clearConsole() {
+        System.out.print("\033[H\033[2J");
+        System.out.flush();
     }
 
     public void DrawGallows(){
