@@ -19,15 +19,24 @@ public class RunGame {
                 case 1:
                     Game game = new Game();
                     boolean win = false;
-                    while (win == false) {
+                    while (win == false && game.steps > 0) {
                         win = game.Step();
                     }
                     if (win == true) {
                         System.out.println("Поздравляю вы выиграли! ");
+                        System.out.println("Хотите сыграть еще раз?\n");
+                        break;
+                    }
+                    else{
+                        System.out.println("К сожалению, вы проиграли.");
+                        System.out.println("Хотите сыграть еще раз?\n");
                         break;
                     }
                 case 2:
+                    System.exit(0);
+                
             }
+
         }
     }
 }

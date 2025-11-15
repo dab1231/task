@@ -37,8 +37,10 @@ public class Game {
         guess[index2] = word[index2];
         return this.guess;
     }
+    
 
     public boolean Step() throws IOException{
+        clearConsole();
         InputStreamReader isr = new InputStreamReader(System.in, StandardCharsets.UTF_8);
         Scanner scanner = new Scanner(isr);
         DrawGallows();
@@ -55,12 +57,10 @@ public class Game {
             }
         }
         if(found){
-            System.out.println("Есть такая буква!");
             clearConsole();
             return IsWon(guess);
             
         } else {
-            System.out.println("Такой буквы нет.");
             steps = steps - 1;
             clearConsole();
             return IsWon(guess);
