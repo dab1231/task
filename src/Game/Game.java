@@ -1,9 +1,10 @@
 package Game;
 import java.io.IOException;
+import java.io.InputStreamReader;
+import java.nio.charset.StandardCharsets;
 import java.util.Random;
 import java.util.Scanner;
 import generate.Generate;
-import generate.*;
 
 public class Game {
     public char[] word;
@@ -36,25 +37,31 @@ public class Game {
         return this.guess;
     }
 
-    public void Step(){
-        Scanner scanner = new Scanner(System.in);
+    public void Step() throws IOException{
+        InputStreamReader isr = new InputStreamReader(System.in, StandardCharsets.UTF_8);
+        Scanner scanner = new Scanner(isr);
+        DrawGallows();
         System.out.println("Введите букву: ");
-        char letter = scanner.next().charAt(0);
+
+        String input = scanner.next();
+        System.out.println("Ты ввёл строку: '" + input + "', длина: " + input.length());
+        char letter = input.charAt(0);
+        System.out.println("Первый символ: '" + letter + "', код: " + (int)letter);
         
         boolean found = false;
         for(int i = 0; i < word.length; i++){
+            System.out.println("Сравниваю: '" + word[i] + "' с '" + letter + "'");
             if(word[i] == letter){
                 guess[i] = letter;
                 found = true;
             }
         }
         if(found){
-            DrawGallows();
             System.out.println("Есть такая буква!");
             IsWon(guess);
         } else {
-            DrawGallows();
             System.out.println("Такой буквы нет.");
+            steps = steps - 1;
         }
     }
 
@@ -80,7 +87,9 @@ public class Game {
                 ________|
                 0 попыток(
                 """);
+                System.out.println(word);
                 System.out.println(guess);
+                break;
             case 1:
                 System.out.println("""
                     +---+
@@ -92,7 +101,9 @@ public class Game {
                 ________|
                 1 попытка
                 """);
-                System.err.println(guess);
+                System.out.println(word);
+                System.out.println(guess);
+                break;
             case 2:
                 System.out.println("""
                     +---+
@@ -104,7 +115,9 @@ public class Game {
                 ________|
                 2 попытки
                 """);
+                System.out.println(word);
                 System.out.println(guess);
+                break;
             case 3:
                 System.out.println("""
                     +---+
@@ -116,7 +129,9 @@ public class Game {
                 ________|
                 3 попытки
                 """);
+                System.out.println(word);
                 System.out.println(guess);
+                break;
             case 4:
                 System.out.println("""
                     +---+
@@ -128,7 +143,9 @@ public class Game {
                 ________|
                 4 попытки
                 """);
+                System.out.println(word);
                 System.out.println(guess);
+                break;
             case 5:
                 System.out.println("""
                     +---+
@@ -140,7 +157,9 @@ public class Game {
                 ________|
                 5 попыток
                 """);
+                System.out.println(word);
                 System.out.println(guess);
+                break;
             case 6:
                 System.out.println("""
                     +---+
@@ -152,7 +171,9 @@ public class Game {
                 ________|
                 6 попыток
                 """);
+                System.out.println(word);
                 System.out.println(guess);
+                break;
         }
     }
 }

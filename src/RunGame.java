@@ -1,5 +1,7 @@
 import java.io.IOException;
-import generate.Generate;
+import java.io.PrintStream;
+import java.nio.charset.StandardCharsets;
+
 import Game.Game;
 public class RunGame {
     public static void main(String[] args) throws IOException{
