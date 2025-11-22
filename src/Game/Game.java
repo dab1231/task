@@ -1,14 +1,13 @@
 package Game;
 
 import java.io.IOException;
-import java.io.InputStreamReader;
-import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Random;
 import java.util.Scanner;
 import generate.Generate;
 import java.util.List;
+import static Game.Utils.*;
 
 public class Game {
     private char[] word;
@@ -18,12 +17,12 @@ public class Game {
             'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z');
     private List<Character> inputedLetters = new ArrayList<>();
 
-    public Game(char[] word, char[] guess) {
-        this.word = word;
-        this.guess = guess;
+    public Game() {
+        this.word = Generate.GenerateWord().toCharArray();
+        makeGuess();
     }
 
-    public char[] makeGuess() {
+    public void makeGuess() {
         this.guess = new char[word.length];
         Random random = new Random();
         Arrays.fill(guess, '_');
@@ -32,11 +31,11 @@ public class Game {
         int index2 = random.nextInt(word.length);
         guess[index] = word[index];
         guess[index2] = word[index2];
-        return this.guess;
     }
 
     public void startGame() {
         boolean win = false;
+        makeGuess();
         while (win == false && steps > 0) {
             try {
                 win = makeStep();
@@ -53,11 +52,16 @@ public class Game {
         }
     }
 
-    public boolean makeStep() throws IOException {
-        clearConsole();
-        InputStreamReader isr = new InputStreamReader(System.in, StandardCharsets.UTF_8);
-        Scanner scanner = new Scanner(isr);
-        DrawGallows();
+    public boolean isLetterUsed(char letter) {
+        if (inputedLetters.contains(letter)) {
+            clearConsole();
+            return true;
+        }
+        return false;
+    }
+
+    public char inputLetter() {
+        Scanner scanner = new Scanner(System.in);
 
         System.out.print("Введите букву (Пример: a / b / w): ");
         String input = scanner.next();
@@ -69,13 +73,21 @@ public class Game {
             input = scanner.next();
             letter = input.charAt(0);
         }
+        scanner.close();
+        return letter;
+    }
 
-        if (inputedLetters.contains(letter)) {
-            clearConsole();
-            inputedLetters.add(letter);
+    public boolean makeStep() throws IOException {
+        clearConsole();
+        DrawGallows(steps, word, guess);
+
+        char letter = inputLetter();
+        boolean isLetterUsed = isLetterUsed(letter);
+        inputedLetters.add(letter);
+        if(isLetterUsed){
             return isWon(guess);
         }
-
+        
         boolean found = false;
         for (int i = 0; i < word.length; i++) {
             if (word[i] == letter) {
@@ -86,18 +98,11 @@ public class Game {
 
         if (found) {
             clearConsole();
-            inputedLetters.add(letter);
             return isWon(guess);
 
         } else {
-            if (inputedLetters.contains(letter)) {
-                clearConsole();
-                inputedLetters.add(letter);
-                return isWon(guess);
-            }
             steps = steps - 1;
             clearConsole();
-            inputedLetters.add(letter);
             return isWon(guess);
         }
     }
@@ -111,111 +116,7 @@ public class Game {
         return true;
     }
 
-    public void clearConsole() {
-        System.out.print("\033[H\033[2J");
-        System.out.flush();
-    }
+    
 
-    public void DrawGallows() {
-        switch (steps) {
-            case 0:
-                System.out.println("""
-                            +---+
-                            |   |
-                            O   |
-                           /|\\  |
-                           / \\  |
-                                |
-                        ________|
-                        0 попыток(
-                        """);
-                System.out.println(word);
-                System.out.println(guess);
-                break;
-            case 1:
-                System.out.println("""
-                            +---+
-                            |   |
-                            O   |
-                           /|\\  |
-                           /    |
-                                |
-                        ________|
-                        1 попытка
-                        """);
-                System.out.println(word);
-                System.out.println(guess);
-                break;
-            case 2:
-                System.out.println("""
-                            +---+
-                            |   |
-                            O   |
-                           /|\\  |
-                                |
-                                |
-                        ________|
-                        2 попытки
-                        """);
-                System.out.println(word);
-                System.out.println(guess);
-                break;
-            case 3:
-                System.out.println("""
-                            +---+
-                            |   |
-                            O   |
-                           /|   |
-                                |
-                                |
-                        ________|
-                        3 попытки
-                        """);
-                System.out.println(word);
-                System.out.println(guess);
-                break;
-            case 4:
-                System.out.println("""
-                            +---+
-                            |   |
-                            O   |
-                            |   |
-                                |
-                                |
-                        ________|
-                        4 попытки
-                        """);
-                System.out.println(word);
-                System.out.println(guess);
-                break;
-            case 5:
-                System.out.println("""
-                            +---+
-                            |   |
-                            O   |
-                                |
-                                |
-                                |
-                        ________|
-                        5 попыток
-                        """);
-                System.out.println(word);
-                System.out.println(guess);
-                break;
-            case 6:
-                System.out.println("""
-                            +---+
-                            |   |
-                                |
-                                |
-                                |
-                                |
-                        ________|
-                        6 попыток
-                        """);
-                System.out.println(word);
-                System.out.println(guess);
-                break;
-        }
-    }
+    
 }
