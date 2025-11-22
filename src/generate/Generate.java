@@ -7,28 +7,32 @@ import java.io.InputStreamReader;
 import java.util.Random;
 
 public class Generate {
-    public static String GenerateWord() throws IOException {
+    public static String GenerateWord(){
         
         InputStream inputStream = Generate.class.getResourceAsStream("google-10000-english-usa-no-swears-long.txt");
+        try{
+            if (inputStream == null) {
+                throw new IOException("Файл  не найден в пакете generate!");
+            }
         
-        if (inputStream == null) {
-            throw new IOException("Файл  не найден в пакете generate!");
-        }
-        
-        BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream, "UTF-8"));
+            BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream, "UTF-8"));
 
-        int lim = 2241;
-        Random random = new Random();
-        int rand = random.nextInt(lim);
-        int current = 1;
+            int lim = 2241;
+            Random random = new Random();
+            int rand = random.nextInt(lim);
+            int current = 1;
 
-        String line = bufferedReader.readLine();
-        while(current < rand) {
-            line = bufferedReader.readLine();
-            current++;
+            String line = bufferedReader.readLine();
+            while(current < rand) {
+                line = bufferedReader.readLine();
+                current++;
+            }
+            
+            bufferedReader.close();
+            return line;
+
+        } catch (IOException e){
+            throw new RuntimeException("Ошибка при чтении файла слов: " + e.getMessage());
         }
-        
-        bufferedReader.close();
-        return line;
     }
 }
