@@ -16,6 +16,7 @@ public class Game {
     private List<Character> validLetters = Arrays.asList('a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l',
             'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z');
     private List<Character> inputedLetters = new ArrayList<>();
+    Scanner scanner = new Scanner(System.in);
 
     public Game() {
         this.word = Generate.GenerateWord().toCharArray();
@@ -35,7 +36,6 @@ public class Game {
 
     public void startGame() {
         boolean win = false;
-        makeGuess();
         while (win == false && steps > 0) {
             try {
                 win = makeStep();
@@ -61,8 +61,6 @@ public class Game {
     }
 
     public char inputLetter() {
-        Scanner scanner = new Scanner(System.in);
-
         System.out.print("Введите букву (Пример: a / b / w): ");
         String input = scanner.next();
         char letter = input.charAt(0);
@@ -73,7 +71,6 @@ public class Game {
             input = scanner.next();
             letter = input.charAt(0);
         }
-        scanner.close();
         return letter;
     }
 

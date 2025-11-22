@@ -6,8 +6,8 @@ public class Utils {
                             +---+
                             |   |
                             O   |
-                           /|\  |
-                           / \  |
+                           /|\\ |
+                           / \\ |
                                 |
                         ________|
                         """,
@@ -15,7 +15,7 @@ public class Utils {
                             +---+
                             |   |
                             O   |
-                           /|\  |
+                           /|\\ |
                            /    |
                                 |
                         ________|
@@ -24,7 +24,7 @@ public class Utils {
                             +---+
                             |   |
                             O   |
-                           /|\  |
+                           /|\\ |
                                 |
                                 |
                         ________|
@@ -66,7 +66,7 @@ public class Utils {
                         ________|
                         """
                         
-    }
+    };
 
     public static char[] getChars(String word) {
         char[] chars = new char[word.length()];
