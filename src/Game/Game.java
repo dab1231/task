@@ -66,7 +66,6 @@ public class Game {
         char letter = input.charAt(0);
 
         while (!validLetters.contains(letter)) {
-            clearConsole();
             System.out.print("Ошибка, введите букву согласно примеру (Пример: a / b / w): ");
             input = scanner.next();
             letter = input.charAt(0);
